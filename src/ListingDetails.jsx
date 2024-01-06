@@ -31,11 +31,6 @@ const ListingDetails = () => {
     </button>
   );
 
-  const kW = listingDetails.data.attributes.kW;
-  const weight = listingDetails.data.attributes.weight;
-
-  const PWR = Math.floor((kW / weight) * 1000);
-
   useEffect(() => {
     const fetchListingDetails = async () => {
       try {
@@ -124,7 +119,11 @@ const ListingDetails = () => {
                 </div>
                 <div className='flex flex-col justify-center items-center w-[33.33%]'>
                   <p className='font-bold'>PWR</p>
-                  <p>{PWR} W/kg</p>
+                  <p>
+                    {Math.floor(
+                      (listingDetails.data.attributes.kW / listingDetails.data.attributes.weight) * 1000
+                    )} W/kg
+                  </p>
                 </div>
               </div>
             </div>
