@@ -21,17 +21,16 @@ const Listings = () => {
   }, []);
 
   if (error) {
-    // Print errors if any
     return <div>An error occured: {error.message}</div>;
   }
 
   const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
   return (
-    <div className="text-themeColors-text font-display">
+    <div className="text-themeColors-text font-display flex flex-col items-center">
         {listings.map(({ id, attributes }) => (
-          <Link to={`/listings/${id}`} key={id} className="flex flex-col items-center mt-8 gap-8">
-          <div className="bg-themeColors-bg-2 w-[90%] rounded-2xl flex flex-col items-center">
+          <Link to={`/listings/${id}`} key={id} className="w-[90%] mt-8">
+          <div className="bg-themeColors-bg-2 rounded-2xl flex flex-col items-center">
             <div>
               <img className="w-full rounded-t-2xl" src={`${VITE_BASE_URL}${attributes.images.data[0]?.attributes?.formats?.medium?.url}`} alt="Thumbnail" />
             </div>

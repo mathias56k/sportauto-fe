@@ -5,3 +5,39 @@
 body {
   background-color: #27242B;
 }
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #F7F402 !important;
+}
+
+.swiper-pagination-bullet {
+  background: #F7F402 !important;
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.clicked-wh {
+  width: 100%;
+  height: 100vh;
+}
+
+.clicked-w {
+  width: 95%;
+  max-width: 100rem;
+}
+
+.clicked-container-mt {
+  margin-top: 0;
+}
+
+.clicked-image {
+  max-width: 100rem;
+}
+
+.clicked-details {
+  display: none;
+}

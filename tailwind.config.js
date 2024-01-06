@@ -11,6 +11,7 @@ export default {
         bg: '#27242B',
         text: '#FFFFFF',
         'bg-2': '#3C3940',
+        accent: '#F7F402',
       }
     },
     extend: {},
