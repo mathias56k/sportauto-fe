@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
+import Navbar from "./Navbar";
+
 const Listings = () => {
   const [error, setError] = useState(null);
   const [listings, setListings] = useState([]);
@@ -28,11 +30,12 @@ const Listings = () => {
 
   return (
     <div className="text-themeColors-text font-display flex flex-col items-center">
+      <Navbar />
         {listings.map(({ id, attributes }) => (
           <Link to={`/listings/${id}`} key={id} className="w-[90%] mt-8">
           <div className="bg-themeColors-bg-2 rounded-2xl flex flex-col items-center">
             <div>
-              <img className="w-full rounded-t-2xl" src={`${VITE_BASE_URL}${attributes.images.data[0]?.attributes?.formats?.medium?.url}`} alt="Thumbnail" />
+              <img className="w-full rounded-t-2xl" src={`${attributes.images.data[0]?.attributes?.formats?.medium?.url}`} alt="Thumbnail" />
             </div>
             <div className="mt-3 mb-1">
               <h3 className="text-[1.15rem] font-bold">{attributes.title}</h3>

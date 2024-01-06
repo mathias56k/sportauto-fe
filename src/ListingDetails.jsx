@@ -7,6 +7,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Mousewheel, Navigation, Pagination } from 'swiper/modules';
 
+import Navbar from './Navbar';
+
 const ListingDetails = () => {
   const { id } = useParams();
   const [listingDetails, setListingDetails] = useState(null);
@@ -29,6 +31,11 @@ const ListingDetails = () => {
     </button>
   );
 
+  const kW = listingDetails.data.attributes.kW;
+  const weight = listingDetails.data.attributes.weight;
+
+  const PWR = Math.floor((kW / weight) * 1000);
+
   useEffect(() => {
     const fetchListingDetails = async () => {
       try {
@@ -45,6 +52,9 @@ const ListingDetails = () => {
 
     return (
       <>
+        <div className={`${isImageClicked ? 'clicked-details' : ''}`}>
+          <Navbar />
+        </div>
         <div className={`flex flex-col items-center mt-8 relative ${isImageClicked ? 'clicked-container-mt' : ''}`}>
           {listingDetails ? (
           <div className={`flex flex-col justify-center items-center w-[100%] ${isImageClicked ? 'clicked-wh' : ''}`}>
@@ -64,16 +74,59 @@ const ListingDetails = () => {
                   </div>
                   <img
                     className={`max-w-[70rem] w-full rounded-3xl ${isImageClicked ? 'clicked-image' : ''}`}
-                    src={`${import.meta.env.VITE_BASE_URL}${image.attributes.formats.medium.url}`}
+                    src={`${image.attributes.formats.medium.url}`}
                     alt={image.attributes.name}
                     onClick={handleImageClick}
                   />
                 </SwiperSlide>
               ))}
             </Swiper>
-            <div className={`${isImageClicked ? 'clicked-details' : ''}`}>
-              <p>{listingDetails.data.attributes.title}</p>
-              <p>{listingDetails.data.attributes.kW}kW</p>
+            <div className={`mt-4 w-[90%] text-themeColors-text flex flex-col items-center ${isImageClicked ? 'clicked-details' : ''}`}>
+              <div className='flex justify-center'>
+                <h3 className='font-bold text-[1.75rem]'>{listingDetails.data.attributes.title}</h3>
+              </div>
+              <div className='flex justify-between mt-4 w-[90%]'>
+                <div className='flex flex-col justify-center items-center w-[33.33%]'>
+                  <p className='font-bold'>Mileage</p>
+                  <p>{listingDetails.data.attributes.mileage}km</p>
+                </div>
+                <div className='flex flex-col justify-center items-center w-[33.33%]'>
+                  <p className='font-bold'>First Registration</p>
+                  <p>{listingDetails.data.attributes.firstRegistration}</p>
+                </div>
+                <div className='flex flex-col justify-center items-center w-[33.33%]'>
+                  <p className='font-bold'>Year</p>
+                  <p>{listingDetails.data.attributes.year}</p>
+                </div>
+              </div>
+              <div className='flex justify-between mt-4 w-[90%]'>
+                <div className='flex flex-col justify-center items-center w-[33.33%]'>
+                  <p className='font-bold'>Engine</p>
+                  <p>{listingDetails.data.attributes.engine} {listingDetails.data.attributes.kW}kW</p>
+                </div>
+                <div className='flex flex-col justify-center items-center w-[33.33%]'>
+                  <p className='font-bold'>Gearbox</p>
+                  <p className='text-center'>{listingDetails.data.attributes.gearbox}</p>
+                </div>
+                <div className='flex flex-col justify-center items-center w-[33.33%]'>
+                  <p className='font-bold'>0-100 km/h</p>
+                  <p>{listingDetails.data.attributes.acceleration}s</p>
+                </div>
+              </div>
+              <div className='flex justify-between mt-4 w-[90%]'>
+                <div className='flex flex-col justify-center items-center w-[33.33%]'>
+                  <p className='font-bold'>Weight</p>
+                  <p className='text-center'>{listingDetails.data.attributes.weight} kg</p>
+                </div>
+                <div className='flex flex-col justify-center items-center w-[33.33%]'>
+                  <p className='font-bold'>Top speed</p>
+                  <p>{listingDetails.data.attributes.topSpeed} km/h</p>
+                </div>
+                <div className='flex flex-col justify-center items-center w-[33.33%]'>
+                  <p className='font-bold'>PWR</p>
+                  <p>{PWR} W/kg</p>
+                </div>
+              </div>
             </div>
           </div>
         ) : (
