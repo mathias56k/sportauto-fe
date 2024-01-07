@@ -1,41 +1,41 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import { Mousewheel, Navigation, Pagination } from 'swiper/modules';
-
+import Lightbox from 'yet-another-react-lightbox';
+import Inline from 'yet-another-react-lightbox/plugins/inline';
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+import Counter from "yet-another-react-lightbox/plugins/counter";
+import 'yet-another-react-lightbox/styles.css';
+import "yet-another-react-lightbox/plugins/counter.css";
 import Navbar from './Navbar';
+
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 const ListingDetails = () => {
   const { id } = useParams();
   const [listingDetails, setListingDetails] = useState(null);
-  const [isImageClicked, setIsImageClicked] = useState(false);
-
-  const handleImageClick = () => {
-    setIsImageClicked(true);
-  };
-
-  const handleCloseButtonClick = () => {
-    setIsImageClicked(false);
-  };
-
-  const closeButton = (
-    <button
-      className="bg-themeColors-bg-2 text-themeColors-accent rounded-tr-2xl rounded-bl-2xl w-16 h-16 flex justify-center items-center text-3xl"
-      onClick={handleCloseButtonClick}
-    >
-      X
-    </button>
-  );
+  const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [slides, setSlides] = useState([]);
+  
+  const toggleOpen = (state) => () => setOpen(state);
+  
+  const updateIndex = ({ index: current }) => setIndex(current);
 
   useEffect(() => {
     const fetchListingDetails = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/listings/${id}?populate=*`);
-        setListingDetails(response.data);
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/api/listings/${id}?populate=*`
+        );
+        const details = response.data;
+        setListingDetails(details);
+
+        const imageUrls = details.data.attributes.images.data.map((image) => ({
+          src: image.attributes.formats.medium.url,
+        }));
+        setSlides(imageUrls);
       } catch (error) {
         console.error('Error fetching listing details:', error);
         setListingDetails(null);
@@ -45,88 +45,81 @@ const ListingDetails = () => {
     fetchListingDetails();
   }, [id]);
 
-    return (
-      <>
-        <div className={`${isImageClicked ? 'clicked-details' : ''}`}>
-          <Navbar />
-        </div>
-        <div className={`flex flex-col items-center mt-8 relative ${isImageClicked ? 'clicked-container-mt' : ''}`}>
-          {listingDetails ? (
-          <div className={`flex flex-col justify-center items-center w-[100%] ${isImageClicked ? 'clicked-wh' : ''}`}>
-            <Swiper
-              className={`max-w-[70rem] w-[90%] rounded-3xl ${isImageClicked ? 'clicked-w' : ''}`}
-              navigation={true}
-              mousewheel={true}
-              pagination={{
-                dynamicBullets: true,
-              }}
-              modules={[Navigation, Pagination, Mousewheel]}
-            >
-              {listingDetails.data.attributes.images.data.map((image) => (
-                <SwiperSlide key={image.id}>
-                  <div className='absolute right-0'>
-                    {isImageClicked && closeButton}
-                  </div>
-                  <img
-                    className={`max-w-[70rem] w-full rounded-3xl ${isImageClicked ? 'clicked-image' : ''}`}
-                    src={`${image.attributes.formats.medium.url}`}
-                    alt={image.attributes.name}
-                    onClick={handleImageClick}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <div className={`mt-4 w-[90%] text-themeColors-text flex flex-col items-center ${isImageClicked ? 'clicked-details' : ''}`}>
-              <div className='flex justify-center'>
-                <h3 className='font-bold text-[1.75rem]'>{listingDetails.data.attributes.title}</h3>
-              </div>
-              <div className='flex justify-between mt-4 w-[90%]'>
-                <div className='flex flex-col justify-center items-center w-[33.33%]'>
-                  <p className='font-bold'>Mileage</p>
-                  <p>{listingDetails.data.attributes.mileage}km</p>
-                </div>
-                <div className='flex flex-col justify-center items-center w-[33.33%]'>
-                  <p className='font-bold'>First Registration</p>
-                  <p>{listingDetails.data.attributes.firstRegistration}</p>
-                </div>
-                <div className='flex flex-col justify-center items-center w-[33.33%]'>
-                  <p className='font-bold'>Year</p>
-                  <p>{listingDetails.data.attributes.year}</p>
-                </div>
-              </div>
-              <div className='flex justify-between mt-4 w-[90%]'>
-                <div className='flex flex-col justify-center items-center w-[33.33%]'>
-                  <p className='font-bold'>Engine</p>
-                  <p>{listingDetails.data.attributes.engine} {listingDetails.data.attributes.kW}kW</p>
-                </div>
-                <div className='flex flex-col justify-center items-center w-[33.33%]'>
-                  <p className='font-bold'>Gearbox</p>
-                  <p className='text-center'>{listingDetails.data.attributes.gearbox}</p>
-                </div>
-                <div className='flex flex-col justify-center items-center w-[33.33%]'>
-                  <p className='font-bold'>0-100 km/h</p>
-                  <p>{listingDetails.data.attributes.acceleration}s</p>
-                </div>
-              </div>
-              <div className='flex justify-between mt-4 w-[90%]'>
-                <div className='flex flex-col justify-center items-center w-[33.33%]'>
-                  <p className='font-bold'>Weight</p>
-                  <p className='text-center'>{listingDetails.data.attributes.weight} kg</p>
-                </div>
-                <div className='flex flex-col justify-center items-center w-[33.33%]'>
-                  <p className='font-bold'>Top speed</p>
-                  <p>{listingDetails.data.attributes.topSpeed} km/h</p>
-                </div>
-                <div className='flex flex-col justify-center items-center w-[33.33%]'>
-                  <p className='font-bold'>PWR</p>
-                  <p>
-                    {Math.floor(
-                      (listingDetails.data.attributes.kW / listingDetails.data.attributes.weight) * 1000
-                    )} W/kg
-                  </p>
-                </div>
-              </div>
-            </div>
+  return (
+    <>
+    <Navbar />
+      <div className="flex flex-col items-center mt-8 relative">
+        {listingDetails ? (
+          <div className="flex flex-col justify-center items-center w-[100%]">
+      <Lightbox
+        styles={{ 
+          container: { borderRadius: "1rem" },
+          navigationPrev: { color: "#F7F402", fontSize: "3rem"},
+          navigationNext: { color: "#F7F402", fontSize: "3rem"}
+        }}
+        index={index}
+        slides={slides}
+        plugins={[Inline, Counter]}
+        counter={{ container: { style: { top: "unset", bottom: -10, left: "46%" } } }}
+        on={{
+          view: updateIndex,
+          click: toggleOpen(true),
+        }}
+        carousel={{
+          padding: 0,
+          spacing: 0,
+          imageFit: "cover",
+          finite: true
+        }}
+        inline={{
+          style: {
+            width: "100%",
+            maxWidth: "746px",
+            aspectRatio: "3 / 2",
+            margin: "0 0",
+          },
+        }}
+        render={{
+          iconPrev: () => <IoIosArrowBack />,
+          iconNext: () => <IoIosArrowForward />
+        }}
+        
+      />
+      <Lightbox
+        styles={{ 
+          container: { backgroundColor: "#27242B" },
+          navigationPrev: { color: "#F7F402", fontSize: "3rem"},
+          navigationNext: { color: "#F7F402", fontSize: "3rem"}
+        }}
+        open={open}
+        close={toggleOpen(false)}
+        index={index}
+        slides={slides}
+        plugins={[Zoom, Counter]}
+        on={{ view: updateIndex }}
+        animation={{ zoom : 500 }}
+        zoom={{
+          maxZoomPixelRatio : 5,
+          zoomInMultiplier : 2,
+          doubleTapDelay : 300,
+          doubleClickDelay : 300,
+          doubleClickMaxStops : 2,
+          keyboardMoveDistance : 50,
+          wheelZoomDistanceFactor : 100,
+          pinchZoomDistanceFactor : 100,
+          scrollToZoom : false,
+        }}
+        controller={{ 
+          closeOnPullDown: true, 
+          closeOnBackdropClick: true 
+        }}
+        noScroll={{disabled: true}}
+        carousel={{finite: true}}
+        render={{
+          iconPrev: () => <IoIosArrowBack />,
+          iconNext: () => <IoIosArrowForward />
+        }}
+      />
           </div>
         ) : (
           <p>Loading...</p>
