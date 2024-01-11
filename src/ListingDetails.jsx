@@ -40,7 +40,7 @@ const ListingDetails = () => {
         setListingDetails(details);
 
         const imageUrls = details.data.attributes.images.data.map((image) => ({
-          src: image.attributes.formats.medium.url,
+          src: image.attributes.url,
         }));
 
         setSlides(imageUrls);

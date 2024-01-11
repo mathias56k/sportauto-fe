@@ -52,12 +52,12 @@ const Listings = () => {
   return (
     <div className="text-themeColors-text font-display flex flex-col items-center">
       <Navbar />
-        <div className="w-[90%] mt-4 flex flex-wrap justify-center gap-8">
+        <div className="w-[90%] mt-8 flex flex-wrap justify-center gap-8">
         {sortListings(listings).map(({ id, attributes }) => (
           <Link to={`/listings/${id}`} key={id} className="max-w-[24rem]">
           <div className="bg-themeColors-bg-2 rounded-2xl flex flex-col items-center">
             <div>
-              <img className="w-full rounded-t-2xl" src={`${attributes.images.data[0]?.attributes?.formats?.medium?.url}`} alt="Thumbnail" />
+              <img className="w-full rounded-t-2xl" src={`${attributes.images.data[0]?.attributes?.url}`} alt="Thumbnail" />
             </div>
             <div className="mt-3 mb-1">
               <h3 className="text-[1.15rem] font-bold">{attributes.title}</h3>
