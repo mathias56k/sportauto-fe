@@ -151,7 +151,7 @@ const ListingDetails = () => {
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Mileage</p>
-        <p className='text-right'>{listingDetails.data.attributes.mileage} km</p>
+        <p className='text-right'>{formatWithSpaces(listingDetails.data.attributes.mileage)} km</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
