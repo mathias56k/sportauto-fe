@@ -7,6 +7,7 @@ import Navbar from "./Navbar";
 const Listings = () => {
   const [error, setError] = useState(null);
   const [listings, setListings] = useState([]);
+  const [sortBy, setSortBy] = useState('price-reverse');
 
   const formatWithSpaces = (number) => {
     if (number >= 10000) {
@@ -28,11 +29,32 @@ const Listings = () => {
 
   const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
+  const sortListings = (listings) => {
+    const sortedListings = [...listings];
+    
+    if (sortBy === 'price') {
+      sortedListings.sort((a, b) => a.attributes.price - b.attributes.price);
+    } else if (sortBy === 'price-reverse') {
+      sortedListings.sort((a, b) => b.attributes.price - a.attributes.price);
+    } else if (sortBy === 'year') {
+      sortedListings.sort((a, b) => a.attributes.year - b.attributes.year);
+    } else if (sortBy === 'year-reverse') {
+      sortedListings.sort((a, b) => b.attributes.year - a.attributes.year);
+    } else if (sortBy === 'name') {
+      sortedListings.sort((a, b) => a.attributes.title.localeCompare(b.attributes.title));
+    } else if (sortBy === 'name-reverse') {
+      sortedListings.sort((a, b) => b.attributes.title.localeCompare(a.attributes.title));
+    }
+
+    return sortedListings;
+  };
+
   return (
     <div className="text-themeColors-text font-display flex flex-col items-center">
       <Navbar />
-        {listings.map(({ id, attributes }) => (
-          <Link to={`/listings/${id}`} key={id} className="w-[90%] mt-8">
+        <div className="w-[90%] mt-4 flex flex-wrap justify-center gap-8">
+        {sortListings(listings).map(({ id, attributes }) => (
+          <Link to={`/listings/${id}`} key={id} className="max-w-[24rem]">
           <div className="bg-themeColors-bg-2 rounded-2xl flex flex-col items-center">
             <div>
               <img className="w-full rounded-t-2xl" src={`${attributes.images.data[0]?.attributes?.formats?.medium?.url}`} alt="Thumbnail" />
@@ -51,6 +73,7 @@ const Listings = () => {
           </div>
           </Link>
         ))}
+        </div>
       <hr className="w-full h-1 border-0 bg-themeColors-bg"/>
     </div>
   );

@@ -58,7 +58,7 @@ const ListingDetails = () => {
     <Navbar />
       <div className="flex flex-col items-center my-8 relative">
         {listingDetails ? (
-      <div className="flex flex-col justify-center items-center w-[90%]">
+      <div className="flex flex-col justify-center items-center w-[90%] max-w-[50rem]">
       <Lightbox
         styles={{ 
           container: { borderRadius: "1rem" },
@@ -82,7 +82,7 @@ const ListingDetails = () => {
         inline={{
           style: {
             width: "100%",
-            maxWidth: "746px",
+            maxWidth: "46rem",
             aspectRatio: "3 / 2",
             margin: "0 0",
           },
@@ -129,92 +129,94 @@ const ListingDetails = () => {
         }}
       />
       <div className='mt-6'>
-        <h3 className='font-bold text-themeColors-text text-2xl'>{listingDetails.data.attributes.title}</h3>
+        <h3 className='font-bold text-themeColors-text text-2xl text-center'>{listingDetails.data.attributes.title}</h3>
       </div>
       <div className='text-themeColors-accent text-[3rem] font-bold flex justify-center w-[90%] mb-10'>
-        <p className=''>{formatWithSpaces(listingDetails.data.attributes.price)}€</p>
+        <p className='text-right'>{formatWithSpaces(listingDetails.data.attributes.price)}€</p>
       </div>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>VIN</p>
-        <p className=''>{listingDetails.data.attributes.VIN}</p>
+        <p className='text-right'>{listingDetails.data.attributes.VIN}</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Model year</p>
-        <p className=''>{listingDetails.data.attributes.year}</p>
+        <p className='text-right'>{listingDetails.data.attributes.year}</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>First registration</p>
-        <p className=''>{listingDetails.data.attributes.firstRegistration}</p>
+        <p className='text-right'>{listingDetails.data.attributes.firstRegistration}</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Mileage</p>
-        <p className=''>{listingDetails.data.attributes.mileage} km</p>
+        <p className='text-right'>{listingDetails.data.attributes.mileage} km</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Engine</p>
-        <p className=''>{listingDetails.data.attributes.engine} {listingDetails.data.attributes.kW}kW</p>
+        <p className='text-right'>{listingDetails.data.attributes.engine} {listingDetails.data.attributes.kW}kW</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Gearbox</p>
-        <p className=''>{listingDetails.data.attributes.gearbox}</p>
+        <p className='text-right'>{listingDetails.data.attributes.gearbox}</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Acceleration 0-100 km/h</p>
-        <p className=''>{listingDetails.data.attributes.acceleration} sec</p>
+        <p className='text-right'>{listingDetails.data.attributes.acceleration} sec</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Top speed</p>
-        <p className=''>{listingDetails.data.attributes.topSpeed} km/h</p>
+        <p className='text-right'>{listingDetails.data.attributes.topSpeed} km/h</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Weight</p>
-        <p className=''>{listingDetails.data.attributes.weight} kg</p>
+        <p className='text-right'>{listingDetails.data.attributes.weight} kg</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Power-to-weight ratio</p>
-        <p className=''>{Math.floor((listingDetails?.data?.attributes?.kW / listingDetails?.data?.attributes?.weight) * 1000)} W/kg</p>
+        <p className='text-right'>{Math.ceil((listingDetails?.data?.attributes?.kW / listingDetails?.data?.attributes?.weight) * 1000)} W/kg</p>
       </div>
+
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%] mt-10'>
         <p className='font-medium'>Exterior</p>
-        <p className=''>{listingDetails.data.attributes.exterior}</p>
+        <p className='text-right'>{listingDetails.data.attributes.exterior}</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Interior</p>
-        <p className=''>{listingDetails.data.attributes.interior}</p>
+        <p className='text-right'>{listingDetails.data.attributes.interior}</p>
       </div>
+
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%] mt-10'>
-        <p className='font-medium'>Warranty</p>
-        <p className=''>{listingDetails.data.attributes.warrantyStatus[0].warranty ? listingDetails.data.attributes.warrantyStatus[0].warrantyTill : 'No'}</p>
-      </div>
-      <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
-      <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Accident free</p>
-        <p className=''>{listingDetails.data.attributes.accidentFree}</p>
+        <p className='capitalize text-right'>{listingDetails.data.attributes.accidentFree}</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Service history</p>
-        <p className=''>{listingDetails.data.attributes.serviceHistory}</p>
+        <p className='capitalize text-right'>{listingDetails.data.attributes.serviceHistory}</p>
+      </div>
+      <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
+      <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
+        <p className='font-medium'>Warranty</p>
+        <p className='text-right'>{listingDetails.data.attributes.warrantyStatus[0].warranty ? listingDetails.data.attributes.warrantyStatus[0].warrantyTill : 'No'}</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Number of owners</p>
-        <p className=''>{listingDetails.data.attributes.numberOfOwners}</p>
+        <p className='text-right'>{listingDetails.data.attributes.numberOfOwners}</p>
       </div>
       <hr className='h-px w-[90%] bg-themeColors-bg-2 border-0 my-2'/>
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex justify-between w-[90%]'>
         <p className='font-medium'>Location</p>
-        <p className=''>{listingDetails.data.attributes.location}</p>
+        <p className='text-right'>{listingDetails.data.attributes.location}</p>
       </div>
       
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex flex-col w-[90%] mt-10'>
@@ -229,15 +231,18 @@ const ListingDetails = () => {
       </div>
 
       <div className='text-themeColors-text text-[1.2rem] font-extralight flex flex-col w-[90%] mt-10'>
-        <p className='font-medium mb-4'>Comments:</p>
-        <div>
-          {listingDetails.data.attributes.comment.map((comment, index) => (
-            <p key={index} className="text-themeColors-text text-[1.2rem] font-light mb-0.5">
-              {comment.children[0].text}
-            </p>
-          ))}
-        </div>
+        {listingDetails.data.attributes.comment !== null && (<p className='font-medium mb-4'>Comments:</p>)}
+          {listingDetails.data.attributes.comment !== null && (
+            <div>
+              {listingDetails.data.attributes.comment.map((comment, index) => (
+              <p key={index} className="text-themeColors-text text-[1.2rem] font-light mb-0.5">
+                {comment.children[0].text}
+              </p>
+           ))}
       </div>
+  )}
+</div>
+
       
           </div>
         ) : (
