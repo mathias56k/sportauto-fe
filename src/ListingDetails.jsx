@@ -7,7 +7,9 @@ import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Counter from "yet-another-react-lightbox/plugins/counter";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/counter.css";
-import Navbar from "./Navbar";
+
+import Navbar from "./components/Navbar";
+import Contacts from "./components/Contacts";
 
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -58,7 +60,8 @@ const ListingDetails = () => {
       <Navbar />
       <div className="flex flex-col items-center my-8 relative">
         {listingDetails ? (
-          <div className="flex flex-col justify-center items-center w-[90%] max-w-[50rem]">
+          <div className="w-full flex flex-col justify-center items-center">
+            <div className="w-[90%] flex flex-col justify-center items-center max-w-[50rem]">
             <Lightbox
               styles={{
                 container: { borderRadius: "1rem" },
@@ -310,6 +313,8 @@ const ListingDetails = () => {
                 </div>
               )}
             </div>
+            </div>
+            <Contacts />
           </div>
         ) : (
           <p className="text-themeColors-text font-bold text-2xl">Loading...</p>

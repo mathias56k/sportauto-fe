@@ -2,7 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import Navbar from "./Navbar";
+import Navbar from "./components/Navbar";
+import Contacts from "./components/Contacts";
 
 const Listings = () => {
   const [error, setError] = useState(null);
@@ -88,7 +89,7 @@ const Listings = () => {
           </Link>
         ))}
       </div>
-      <hr className="w-full h-1 border-0 bg-themeColors-bg" />
+      <Contacts />
     </div>
   );
 };
