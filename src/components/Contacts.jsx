@@ -1,11 +1,11 @@
 import { IoMailOutline } from "react-icons/io5";
-import { FiPhone } from "react-icons/fi";
+import { BsTelephone } from "react-icons/bs";
 
 const Contacts = () => {
   return (
     <div className="flex flex-col justify-center items-center my-12 h-56 bg-themeColors-bg-2 w-full text-themeColors-text">
       <div className="h-[15%] w-full flex justify-center items-center">
-        <p className="text-xl font-bold">Viewing by appointment only</p>
+        <p className="text-xl font-semibold">Viewing by appointment only</p>
       </div>
       <div className="h-[50%] flex items-center w-full max-w-[40rem]">
         <a href="mailto:kristjan@sportauto.ee" className="w-[30%] text-[4.5rem] flex justify-center">
@@ -23,7 +23,7 @@ const Contacts = () => {
           <p className="mt-[-.25rem] text-sm">kristjan@sportauto.ee</p>
         </div>
         <a href="tel:+372 5064403" className="w-[30%] text-[4rem] flex justify-center">
-          <div className="text-themeColors-accent"><FiPhone /></div>
+          <div className="text-themeColors-accent"><BsTelephone /></div>
         </a>
       </div>
       <div className="h-[15%] flex flex-col items-center">

@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Contacts from "./components/Contacts";
+import Footer from "./components/Footer";
 
 const Listings = () => {
   const [error, setError] = useState(null);
   const [listings, setListings] = useState([]);
   const [sortBy, setSortBy] = useState("price-reverse");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [seeAll, setSeeAll] = useState(false);
 
   const formatWithSpaces = (number) => {
     if (number >= 10000) {
@@ -51,14 +54,28 @@ const Listings = () => {
       );
     }
 
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+  
+      window.addEventListener("resize", handleResize);
+  
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
+
     return sortedListings;
   };
+
+  const itemsPerPage = seeAll ? listings.length : (windowWidth < 640 ? 3 : listings.length);
 
   return (
     <div className="text-themeColors-text font-display flex flex-col items-center">
       <Navbar />
       <div className="w-[90%] mt-8 flex flex-wrap justify-center gap-8">
-        {sortListings(listings).map(({ id, attributes }) => (
+        {sortListings(listings).slice(0, itemsPerPage).map(({ id, attributes }) => (
           <Link to={`/listings/${id}`} key={id} className="max-w-[24rem]">
             <div className="bg-themeColors-bg-2 rounded-2xl flex flex-col items-center">
               <div>
@@ -88,8 +105,18 @@ const Listings = () => {
             </div>
           </Link>
         ))}
+        {windowWidth < 640 && !seeAll && (
+          <div className="max-w-[24rem] w-[100%]">
+            <div className="bg-themeColors-bg-2 rounded-2xl flex flex-col items-center p-4">
+              <button className="text-themeColors-text text-2xl font-bold" onClick={() => setSeeAll(true)}>
+                See All
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       <Contacts />
+      <Footer />
     </div>
   );
 };
