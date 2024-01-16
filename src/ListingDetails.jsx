@@ -121,7 +121,7 @@ const ListingDetails = () => {
               on={{ view: updateIndex }}
               animation={{ zoom: 500 }}
               zoom={{
-                maxZoomPixelRatio: 5,
+                maxZoomPixelRatio: 3,
                 zoomInMultiplier: 2,
                 doubleTapDelay: 300,
                 doubleClickDelay: 300,

@@ -69,7 +69,7 @@ const Listings = () => {
     return sortedListings;
   };
 
-  const itemsPerPage = seeAll ? listings.length : (windowWidth < 640 ? 3 : listings.length);
+  const itemsPerPage = seeAll ? listings.length : (windowWidth < 888 ? 3 : listings.length);
 
   return (
     <div className="text-themeColors-text font-display flex flex-col items-center">
@@ -81,7 +81,7 @@ const Listings = () => {
               <div>
                 <img
                   className="w-full rounded-t-2xl"
-                  src={`${attributes.images.data[0]?.attributes?.url}`}
+                  src={`${attributes.images.data[0]?.attributes?.formats?.medium?.url}`}
                   alt="Thumbnail"
                 />
               </div>
@@ -105,7 +105,7 @@ const Listings = () => {
             </div>
           </Link>
         ))}
-        {windowWidth < 640 && !seeAll && (
+        {windowWidth < 888 && !seeAll && (
           <div className="max-w-[24rem] w-[100%]">
             <div className="bg-themeColors-bg-2 rounded-2xl flex flex-col items-center p-4">
               <button className="text-themeColors-text text-2xl font-bold" onClick={() => setSeeAll(true)}>

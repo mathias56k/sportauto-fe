@@ -3,7 +3,7 @@ import { BsTelephone } from "react-icons/bs";
 
 const Contacts = () => {
   return (
-    <div className="flex flex-col justify-center items-center my-12 h-56 bg-themeColors-bg-2 w-full text-themeColors-text">
+    <div className="flex flex-col justify-center items-center mt-12 p-5 bg-themeColors-bg-2 w-full text-themeColors-text">
       <div className="h-[15%] w-full flex justify-center items-center">
         <p className="text-xl font-semibold">Viewing by appointment only</p>
       </div>
